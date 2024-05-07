@@ -10,12 +10,22 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://3.111.35.219/api/admin/users', {
-          headers: {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBhZWQ0N2M4Yzg1ODRmMTNjYjkwZGUiLCJuYW1lIjoiQ29ubmVjdCBTYWxlcyIsImlhdCI6MTcxNDk3MjcyMCwiZXhwIjoxNzE1ODM2NzIwfQ.qBAujAm33OdMEInBclvujHHONt3vWj-3-XEpgZRHN6o'
-          }
-          
+        const token = localStorage.getItem('token')
+          console.log(token, "token: ");
+        let headersList = {
+          "Accept": "*/*",
+          "Authorization": `Bearer ${token}`,
+         }
+        let response = await fetch("http://3.111.35.219/api/admin/users", { 
+          method: "GET",
+          headers: headersList
         });
+        // const response = await fetch('http://3.111.35.219/api/admin/users', {
+        //   headers: {
+        //     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBhZWQ0N2M4Yzg1ODRmMTNjYjkwZGUiLCJuYW1lIjoiQ29ubmVjdCBTYWxlcyIsImlhdCI6MTcxNDk3MjcyMCwiZXhwIjoxNzE1ODM2NzIwfQ.qBAujAm33OdMEInBclvujHHONt3vWj-3-XEpgZRHN6o'
+        //   }
+          
+        // });
         console.log('Request headers:', response.headers); // Log the response headers to verify the Authorization header
 
         const data = await response.json();
