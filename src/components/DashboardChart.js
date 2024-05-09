@@ -1,59 +1,90 @@
-import React from 'react';
-import { Pie, Bar } from 'react-chartjs-2';
-import Chart from 'chart.js/auto';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Line, Bar } from 'react-chartjs-2';
+import { PointElement, Chart } from 'chart.js';
+Chart.register(PointElement);
+Chart.register(Chart);
 
-const DashboardChart = () => {
-  // Data for pie chart
-  const pieData = {
-    labels: ['Seller A', 'Seller B', 'Seller C'],
+const ChartComponent = () => {
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    axios.get('http://3.111.35.219/api/admin/users', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      setUserData(response.data.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  }, []);
+
+  const lineChartData = {
+    labels: ['Active Users', 'Total Users', 'Buyers', 'Sellers', 'Products'],
     datasets: [
       {
-        data: [300, 450, 200],
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-      },
-    ],
+        label: 'Count',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: 'rgba(75,192,192,1)',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: userData ? [userData.activeUsers, userData.totalUsers, userData.buyers, userData.sellers, userData.products] : []
+      }
+    ]
   };
 
-  // Data for histogram chart
-  const histogramData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+  const barChartData = {
+    labels: ['Active Users', 'Total Users', 'Buyers', 'Sellers', 'Products'],
     datasets: [
       {
-        label: 'Sales',
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-        borderColor: 'rgba(54, 162, 235, 1)',
+        label: 'Count',
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
         borderWidth: 1,
-        hoverBackgroundColor: 'rgba(54, 162, 235, 0.7)',
-        hoverBorderColor: 'rgba(54, 162, 235, 1)',
-        data: [65, 59, 80, 81, 56, 55],
-      },
-    ],
+        hoverBackgroundColor: 'rgba(75,192,192,0.6)',
+        hoverBorderColor: 'rgba(75,192,192,1)',
+        data: userData ? [userData.activeUsers, userData.totalUsers, userData.buyers, userData.sellers, userData.products] : []
+      }
+    ]
   };
 
   return (
-    <div className="p-8 bg-white rounded-xl">
-      <h2 className="text-xl font-semibold mb-4 ">Total Seller</h2>
-
-      <div className="flex flex-wrap">
-        {/* Pie Chart */}
-        <div className="w-full sm:w-1/2 mb-4">
-          <div className="w-72 h-72">
-            <Pie data={pieData} />
-          </div>
-
-        </div>
-
-        {/* Histogram Chart */}
-        <div className="w-full sm:w-1/2 mb-4">
-          <div className="w-full">
-            <Bar data={histogramData} />
-          </div>
-
-        </div>
+    <div>
+      <h2>User Data</h2>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        {userData && (
+          <>
+            <div style={{ width: '45%' }}>
+              <h3>Line Chart</h3>
+              <Line data={lineChartData} />
+            </div>
+            <div style={{ width: '45%' }}>
+              <h3>Bar Chart</h3>
+              <Bar data={barChartData} />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
 };
 
-export default DashboardChart;
+export default ChartComponent;

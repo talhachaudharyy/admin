@@ -13,6 +13,10 @@ const Sidebar = () => {
     // Remove token from local storage
     localStorage.removeItem("token");
     localStorage.removeItem("userData");
+    localStorage.removeItem("chats");
+    localStorage.removeItem("chatID");
+    localStorage.removeItem("chatsId");
+    
 
     // Navigate to login page
     navigate("/login");

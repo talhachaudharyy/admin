@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BarChartOutlined } from '@ant-design/icons';
 import Sidebar from '../components/Sidebar';
-import DashboardChart from '../components/DashboardChart';
-import DashboardChart2 from '../components/DashboardChart2';
+// import DashboardChart from '../components/DashboardChart';
+// import DashboardChart2 from '../components/DashboardChart2';
 
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
@@ -46,7 +46,7 @@ const Dashboard = () => {
         
         <p className="text-gray-600 mb-8">Hi, Welcome to Medicare Admin Dashboard</p>
         
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
           {userData && (
             <>
               <div className="flex items-center bg-white cursor-pointer p-4 rounded-lg shadow-md">
@@ -85,14 +85,23 @@ const Dashboard = () => {
                   <p className="text-slate-700 text-sm">Sellers</p>
                 </div>
               </div>
+              <div className="flex items-center bg-white cursor-pointer p-4 rounded-lg shadow-md">
+              <div style={{ borderRadius: '50%', padding: '8px', backgroundColor: '#fa9002' }}>
+                  <BarChartOutlined style={{ fontSize: '24px', color: '#fff' }} />
+                </div>
+              <div className="ml-3">
+                  <p className="text-slate-700 font-bold text-lg">{userData.products}</p>
+                  <p className="text-slate-700 text-sm">Products</p>
+                </div>
+              </div>
             </>
           )}
         </div>
         <div className="mt-8">
-          <DashboardChart />
+          {/* <DashboardChart /> */}
         </div>
         <div className="mt-8">
-          <DashboardChart2 />
+          {/* <DashboardChart2 /> */}
         </div>
       </div>
     </div>

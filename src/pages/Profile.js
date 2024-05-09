@@ -26,13 +26,14 @@ const Profile = () => {
               </div>
               <hr className="border-t border-gray-200 mb-6" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="mb-4">
-                  <label className="block text-gray-600 text-sm font-semibold mb-2">ID</label>
-                  <p className="text-gray-800 text-sm">{userData._id}</p>
-                </div>
+                
                 <div className="mb-4">
                   <label className="block text-gray-600 text-sm font-semibold mb-2">First Name</label>
                   <p className="text-gray-800 text-sm">{userData.fname}</p>
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-600 text-sm font-semibold mb-2">Last Name</label>
+                  <p className="text-gray-800 text-sm">{userData.lname}</p>
                 </div>
                 <div className="mb-4">
                   <label className="block text-gray-600 text-sm font-semibold mb-2">User Type</label>
@@ -42,10 +43,7 @@ const Profile = () => {
                   <label className="block text-gray-600 text-sm font-semibold mb-2">Email</label>
                   <p className="text-gray-800 text-sm">{userData.email}</p>
                 </div>
-                <div className="mb-4">
-                  <label className="block text-gray-600 text-sm font-semibold mb-2">Last Name</label>
-                  <p className="text-gray-800 text-sm">{userData.lname}</p>
-                </div>
+                
               </div>
             </>
           ) : (
