@@ -1,79 +1,75 @@
-import React from 'react';
-import Chart from 'react-apexcharts';
+import React, { useEffect, useState } from 'react';
+import { Chart } from 'react-google-charts';
+import getUserData from '../modules/getUserData';
 
-const DashboardChart2 = () => {
-  // Data for line chart
-  const lineOptions = {
-    chart: {
-      id: 'line-chart',
-      toolbar: {
-        show: false
-      }
-    },
-    xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-    }
-  };
+export default function DashboardChart2() {
+  const [userData, setUserData] = useState(null);
 
-  const lineSeries = [{
-    name: 'Sales',
-    data: [65, 59, 80, 81, 56, 55]
-  }];
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    getUserData(token)
+      .then(data => {
+        setUserData(data);
+      });
+  }, []);
 
-  // Data for circular chart
-  const circularOptions = {
-    chart: {
-      id: 'circular-chart',
-      toolbar: {
-        show: false
-      }
-    },
-    plotOptions: {
-      radialBar: {
-        startAngle: -135,
-        endAngle: 135,
-        dataLabels: {
-          name: {
-            fontSize: '16px',
-            offsetY: 120
-          },
-          value: {
-            offsetY: 76,
-            fontSize: '22px',
-            formatter: function (val) {
-              return val + '%';
-            }
-          }
-        }
-      }
-    },
-    labels: ['Progress']
-  };
+  const pieChartData1 = [
+    ['Category', 'Count'],
+    ['Active Users', userData ? userData.activeUsers : 0],
+    ['Total Users', userData ? userData.totalUsers : 0],
+    ['Buyers', userData ? userData.buyers : 0],
+    ['Sellers', userData ? userData.sellers : 0],
+    ['Products', userData ? userData.products : 0]
+  ];
 
-  const circularSeries = [75];
+  const pieChartData2 = [
+    ['Category', 'Count'],
+    ['Category A', 20],
+    ['Category B', 30],
+    ['Category C', 50]
+  ];
 
   return (
-    <div className="p-8 bg-white rounded-xl">
-      <h2 className="text-xl font-semibold text-slate-900 mb-4">Total Buyer</h2>
-
-      <div className="flex flex-wrap">
-        {/* Line Chart */}
-        <div className="w-full sm:w-1/2 mb-4">
-          <div className="w-full">
-            {lineSeries[0].data.length > 0 && <Chart options={lineOptions} series={lineSeries} type="line" height={300} />}
-          </div>
+    <div className='bg-gray-50 p-8 rounded-lg shadow-md'>
+      <div className="flex flex-wrap justify-around">
+        <div className="chart-container">
+          <Chart
+            width={'100%'}
+            height={'300px'}
+            chartType="PieChart"
+            loader={<div>Loading Chart</div>}
+            data={pieChartData1}
+            options={{
+              title: 'User Data',
+              legend: { position: 'right' },
+              pieSliceText: 'label', // Show labels
+              slices: {
+                0: { offset: 0.1 }, // Adjust the offset if needed
+              },
+            }}
+          />
+          <h3 className='text-sm font-semibold mt-4'>Pie Chart 1</h3>
         </div>
 
-        {/* Circular Chart */}
-        <div className="w-full sm:w-1/2 mb-4">
-          <h3 className="text-lg font-semibold text-slate-900 mb-2">Circular Chart</h3>
-          <div className="w-full">
-            {circularSeries.length > 0 && <Chart options={circularOptions} series={circularSeries} type="radialBar" height={300} />}
-          </div>
+        <div className="chart-container">
+          <Chart
+            width={'100%'}
+            height={'300px'}
+            chartType="PieChart"
+            loader={<div>Loading Chart</div>}
+            data={pieChartData2}
+            options={{
+              title: 'Category Data',
+              legend: { position: 'right' },
+              pieSliceText: 'label', // Show labels
+              slices: {
+                0: { offset: 0.1 }, // Adjust the offset if needed
+              },
+            }}
+          />
+          <h3 className='text-sm font-semibold mt-4'>Pie Chart 2</h3>
         </div>
       </div>
     </div>
   );
-};
-
-export default DashboardChart2;
+}

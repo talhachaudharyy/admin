@@ -73,8 +73,8 @@ const ChatPage = () => {
                 <div className="flex justify-center items-center bg-white border-b p-4">
                     <h1 className="text-xl font-semibold">Chats</h1>
                 </div>
-                <div className="flex w-auto flex-grow overflow-y-auto">
-                    <div className="min-w-max p-10 bg-white overflow-y-auto hide-scrollbar">
+                <div className="flex w-auto flex-grow overflow-y-auto border-t">
+                    <div className="min-w-max p-10 bg-white overflow-y-auto hide-scrollbar border-r">
                         <ChatList chats={chats} onChatClick={setSelectedChat} />
                     </div>
                     <div className="w-3/4 bg-white overflow-y-auto hide-scrollbar">

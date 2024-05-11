@@ -22,3 +22,17 @@ font-variation-settings: "slnt" 0;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.chart-container {
+  width: calc(50% - 20px);
+  max-width: 400px; /* Adjust as needed */
+  height: 400px; /* Adjust as needed */
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    width: 100%;
+    max-width: none;
+  }
+}

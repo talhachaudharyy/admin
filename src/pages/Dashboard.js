@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BarChartOutlined } from '@ant-design/icons';
 import Sidebar from '../components/Sidebar';
-// import DashboardChart from '../components/DashboardChart';
-// import DashboardChart2 from '../components/DashboardChart2';
+import DashboardChart from '../components/DashboardChart';
+import DashboardChart2 from '../components/DashboardChart2';
 
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
@@ -11,7 +11,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token')
-          console.log(token, "token: ");
+          // console.log(token, "token: ");
         let headersList = {
           "Accept": "*/*",
           "Authorization": `Bearer ${token}`,
@@ -40,8 +40,9 @@ const Dashboard = () => {
 
   return (
     <div className="flex">
-      <Sidebar />
       <div className="p-8 flex-grow">
+      <Sidebar />
+
         <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
         
         <p className="text-gray-600 mb-8">Hi, Welcome to Medicare Admin Dashboard</p>
@@ -98,10 +99,10 @@ const Dashboard = () => {
           )}
         </div>
         <div className="mt-8">
-          {/* <DashboardChart /> */}
+          <DashboardChart />
         </div>
         <div className="mt-8">
-          {/* <DashboardChart2 /> */}
+          <DashboardChart2 />
         </div>
       </div>
     </div>
