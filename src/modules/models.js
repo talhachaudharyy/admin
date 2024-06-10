@@ -2,7 +2,7 @@
 
 const handleLogin = async (email, password) => {
   try {
-    const response = await fetch('http://3.111.35.219/api/user/login', {
+    const response = await fetch('http://3.111.55.38:4000/api/user/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: {

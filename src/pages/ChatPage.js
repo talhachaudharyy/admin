@@ -45,7 +45,7 @@ const ChatPage = () => {
                 try {
                     const token = localStorage.getItem('token');
                     const receiverId = selectedChat._id;
-                    const response = await fetch("http://3.111.35.219/api/message/getMessages", {
+                    const response = await fetch("http://3.111.55.38:4000/api/message/getMessages", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

@@ -21,7 +21,7 @@ const ChatWindow = ({ user }) => {
           })
         };
         
-        const response = await fetch("http://3.111.35.219/api/message/getMessages", requestOptions);
+        const response = await fetch("http://3.111.55.38:4000/api/message/getMessages", requestOptions);
         const data = await response.json();
         // console.log(data);
         if (data.status === "success") {

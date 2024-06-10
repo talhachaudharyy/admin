@@ -8,7 +8,7 @@ const ChatModel = {
                 "Authorization": `Bearer ${token}`
             };
 
-            const response = await fetch("http://3.111.35.219/api/chat/userChats", {
+            const response = await fetch("http://3.111.55.38:4000/api/chat/userChats", {
                 method: "GET",
                 headers: headersList
             });

@@ -14,7 +14,7 @@ const fetchMessages = async (token, receiverId) => {
         })
       };
   
-      const response = await fetch("http://3.111.35.219/api/message/getMessages", requestOptions);
+      const response = await fetch("http://3.111.55.38:4000/api/message/getMessages", requestOptions);
       const data = await response.json();
   
       if (data.status === "success") {

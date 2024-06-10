@@ -23,7 +23,7 @@ const ChatInput = () => {
         })
       };
 
-      const response = await fetch("http://3.111.35.219/api/message/addMessage", requestOptions);
+      const response = await fetch("http://3.111.55.38:4000/api/message/addMessage", requestOptions);
       const data = await response.json();
       console.log(data)
       

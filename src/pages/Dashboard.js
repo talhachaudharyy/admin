@@ -16,11 +16,11 @@ const Dashboard = () => {
           "Accept": "*/*",
           "Authorization": `Bearer ${token}`,
          }
-        let response = await fetch("http://3.111.35.219/api/admin/users", { 
+        let response = await fetch("http://3.111.55.38:4000/api/admin/users", { 
           method: "GET",
           headers: headersList
         });
-        // const response = await fetch('http://3.111.35.219/api/admin/users', {
+        // const response = await fetch('http://3.111.55.38:4000/api/admin/users', {
         //   headers: {
         //     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBhZWQ0N2M4Yzg1ODRmMTNjYjkwZGUiLCJuYW1lIjoiQ29ubmVjdCBTYWxlcyIsImlhdCI6MTcxNDk3MjcyMCwiZXhwIjoxNzE1ODM2NzIwfQ.qBAujAm33OdMEInBclvujHHONt3vWj-3-XEpgZRHN6o'
         //   }
