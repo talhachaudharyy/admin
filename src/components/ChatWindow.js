@@ -1,14 +1,16 @@
+// components/ChatWindow.js
 import React, { useState, useEffect } from 'react';
 import ChatInput from './ChatInput';
+import ChatMessage from './ChatMessage';
 
 const ChatWindow = ({ user }) => {
   const [messages, setMessages] = useState([]);
+  const chatId = localStorage.getItem('chatID');
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
         const token = localStorage.getItem('token');
-        const recieverId = localStorage.getItem('chatID');
 
         const requestOptions = {
           method: 'POST',
@@ -17,7 +19,7 @@ const ChatWindow = ({ user }) => {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            "recieverId": recieverId
+            "recieverId": chatId
           })
         };
 
@@ -32,7 +34,7 @@ const ChatWindow = ({ user }) => {
     };
 
     fetchMessages();
-  }, []);
+  }, [chatId]);
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -47,28 +49,7 @@ const ChatWindow = ({ user }) => {
       </div>
       <div className="h-screen overflow-y-auto p-4 pb-36 bg-gray-100">
         {messages.map((message, index) => (
-          <div key={index} className={`flex ${message.senderId === user._id ? 'justify-start' : 'justify-end'} mb-4`}>
-          {message.senderId === user._id && (
-              <>
-                <div className="w-9 h-9 rounded-full flex items-center justify-center mr-2">
-                  <img src={user.profileImage} alt="Avatar" className="w-8 h-8 rounded-full" />
-                </div>
-                <div className="flex max-w-96 bg-white text-black rounded-lg p-3 gap-3">
-                  <p>{message.text}</p>
-                </div>
-              </>
-            )}
-            {message.senderId !== user._id && (
-              <>
-                <div className="flex max-w-96 bg-indigo-500 text-white rounded-lg p-3 gap-3">
-                  <p>{message.text}</p>
-                </div>
-                <div className="w-9 h-9 rounded-full flex items-center justify-center ml-2">
-                  <img src="https://placehold.co/200x/ffa8e4/ffffff.svg?text=ʕ•́ᴥ•̀ʔ&font=Lato" alt="Avatar" className="w-8 h-8 rounded-full" />
-                </div>
-              </>
-            )}
-          </div>
+          <ChatMessage key={index} message={message} currentUser={user} />
         ))}
       </div>
       <ChatInput />
