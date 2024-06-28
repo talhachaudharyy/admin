@@ -13,9 +13,13 @@ const handleLogin = async (email, password) => {
     if (data.status === "success" && data.data) {
       const newToken = data.data.token;
       const userData = data.data; // Assuming user data is available in the response
+      const userId = userData._id; // Extract the user _id
+      
       localStorage.setItem('token', newToken);
       localStorage.setItem('userData', JSON.stringify(userData)); // Store user data in local storage
-      return { token: newToken, userData };
+      localStorage.setItem('userId', userId); // Store user _id separately
+      
+      return { token: newToken, userData, userId };
     } else {
       return null;
     }
@@ -24,7 +28,5 @@ const handleLogin = async (email, password) => {
     return null;
   }
 };
-
-
 
 export default handleLogin;
